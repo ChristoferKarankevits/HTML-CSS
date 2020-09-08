@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Drag & Drop</title>
+	<style>
+		#source {
+			background-color: yellow;
+			width: 100px;
+			height: 100px;
+			cursor: move;
+			color: black;
+		}
+
+		#target {
+			background-color: blue;
+			width: 150px;
+			height: 150px;
+			padding: 5px;
+			margin-bottom: 5px;
+			color: white;
+		}
+	</style>
+	<script>
+		window.onload = function () {
+			var source = document.getElementbyId("source");
+			source.addElementListener('dragstart', function (evt) {
+				this.style.border = "3px dotted #000";
+				evt.dataTransfer.effectAllowed = "move";
+				evt.dataTransfer.setData("Text", this.id);
+			}, false);
+
+			var target = document.getElementById("target");
+			target.addElementListener("dragenter", function (evt) {
+				this.style.border = "";
+			}, false);
+
+			target.addElementListener("dragleave", function (evt) {
+				this.style.border = "";
+			}, false);
+			target.addElementListener("dragover", function (evt) {
+				if (evt.preventDefault) evt.preventDefault();
+				return false;
+			}, false);
+			target.addElementListener("drop", function (evt) {
+				if (evt.preventDefault) evt.preventDefault();
+				if (evt.preventDefault) evt.preventDefault();
+
+				this.style.border = "";
+				var id = evt.dataTransfer.getData("Text");
+
+				var elem = documen.getElementById(id);
+				this.appendChild(elem);
+
+				return false;
+			}, false);
+		}
+	</script>
+</head>
+<body>
+	<div id="source" draggable="true">Этот элемент</div>
+
+	<div id="target">Перемести в эту область</div>
+	
+</body>
+</html>
